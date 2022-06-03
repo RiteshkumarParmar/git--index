@@ -1,0 +1,22 @@
+from bs4 import BeautifulSoup
+import requests
+from csv import writer
+url = "https://www.linkedin.com/search/results/companies/?companyHqGeo=%5B%22114495808%22%5D&industry=%5B%2296%22%5D&origin=FACETED_SEARCH&sid=Wn("
+source = requests.get(url)
+
+soup = BeautifulSoup(source.content,'html.parser')
+comps = soup.find_all('div',class_="entity-result__content entity-result__divider pt3 pb3 t-12 t-black--light")
+
+with open('comps.csv','w',newline='') as f:
+  thewriter = writer(f)
+  header = ['Name','Location','Followers','Description',]
+  thewriter.writerow(header)
+
+  for comp in comps:
+    Name = comp.find('a', class_='app-aware-link').text
+    Location = comp.find('div', class_='entity-result__primary-subtitle t-14 t-black t-normal').text
+    Followers = comp.find('div', class_='entity-result__secondary-subtitle t-14 t-normal').text
+    Description = comp.find('p', class ='linked-area flex-1 cursor-pointer').text
+           
+    info = [Name,Location,Followers,Description]
+    thewriter.writerow(info)
