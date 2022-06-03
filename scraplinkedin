@@ -16,7 +16,7 @@ with open('comps.csv','w',newline='') as f:
     Name = comp.find('a', class_='app-aware-link').text
     Location = comp.find('div', class_='entity-result__primary-subtitle t-14 t-black t-normal').text
     Followers = comp.find('div', class_='entity-result__secondary-subtitle t-14 t-normal').text
-    Description = comp.find('p', class ='linked-area flex-1 cursor-pointer').text
+    Description = comp.find('p', class_ ='linked-area flex-1 cursor-pointer').text
            
     info = [Name,Location,Followers,Description]
     thewriter.writerow(info)
